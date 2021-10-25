@@ -1,4 +1,21 @@
-#idea: python script for data augmentation
+# This is Data Augmentation Library for images developed in Python and OpenCV
+
+# TODO
+# - Shearing the image
+
+
+# SUCCESFULLY IMPLEMENTED:
+# - Resizing and rotation in the same direction all images
+# - Random color modification
+# - Blurring images
+# - Flipping images vertically/horizontally/mirror
+# - Erasing part of the image randomly
+# - Salt and Pepper adding
+# - Change brigthness and contrast
+# - Random rotation of he images
+# - Edge Detection
+# - Zoom in
+# - Zoom out
 
 import os
 import cv2 as cv
@@ -52,7 +69,7 @@ def color_modification(images):
     return colorMod_images
 
 
-#blurred images
+# blurred images
 def blurr_images(images):
     blurred_images = deepcopy(images)
     for idx, _ in enumerate(blurred_images):
@@ -95,7 +112,7 @@ def random_erasing(images):
     return images_erasing
     
 
-#add random noise:
+# add random noise:
 def add_noise(images):
     salted_images = deepcopy(images)
     for idx,_ in enumerate(salted_images):
@@ -136,7 +153,7 @@ def brigth_and_contrast(images, alpha = 1.5, beta = 0, gamma = 50):
     return brigth_and_contrast_images
 
 
-#random rotated
+# random rotated
 def random_rotation(images, iterations=1):
     random_rotated_images = deepcopy(images)
 
@@ -180,6 +197,31 @@ def detect_edges(images):
     print("Edged.")
     return detect_edges
 
+# zoom in
+def zoom_in(images):
+    zoomed_in_images = deepcopy(images)
+    for idx,_ in enumerate(zoomed_in_images):
+        _ = _[300:1200, 200:800]
+        _ = cv.resize(_, (1500, 1000))
+        cv.imwrite(f"Augmented/zoomed_in_images{idx}.jpg",_)
+        zoomed_in_images[idx] = _
+    print("Zoomed in.")
+    return zoomed_in_images
+
+# zoom out
+def zoom_out(images):
+    zoomed_out_images = deepcopy(images)
+    for idx,_ in enumerate(zoomed_out_images):
+        _ = cv.resize(_, (1050, 700))
+        _ = cv.copyMakeBorder(_,150,150,225,225, cv.BORDER_CONSTANT)
+        cv.imwrite(f"Augmented/zoomed_out_images{idx}.jpg",_)
+        zoomed_out_images[idx] = _
+    print("Zoomed out.")
+    return zoomed_out_images
+
+
+
+
 
 
 #
@@ -196,10 +238,11 @@ if __name__ == "__main__":
         os.mkdir("Augmented")
 
 
-    print("This library augements your dataset by 10 times.")
+    print("This library augements your dataset by 12 times.")
     print("Insert your dataset's path:")
 
-    path = "Dataset/*.jpg"
+    #   /Users/mattiadurso/Desktop/python Projects/OpenCV/Project_1/Dataset/*.jpg
+    path = input()+"/*.jpg"
 
     print()
     start = tm()
@@ -215,6 +258,8 @@ if __name__ == "__main__":
         random_erasing(images)
         add_noise(images)
         detect_edges(images)
+        zoom_in(images)
+        zoom_out(images)
 
     end = tm()
     print()
