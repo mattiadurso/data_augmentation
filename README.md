@@ -1,3 +1,7 @@
 # Data augmentation library
-A library with several image processing pre-implemented functions. You can use one or the whole function. 
-To use open the terminal in the .py file path and put your images in a directory called "Dataset" then run the file data_augmentation.py to have you dataset increase by 12 times.
+A library with several image processing pre-implemented functions. 
+
+How to use:
+- Run the .py file 
+- Insert the path of your dataset directory such as "/Users/someuser/Desktop/dir1/Dataset"
+- Press Return
